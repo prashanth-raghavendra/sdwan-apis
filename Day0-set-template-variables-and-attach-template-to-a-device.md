@@ -1,17 +1,22 @@
 # Day0 - Set template variables and attach template to device
+<br>
 
-
-1.	Pre-requisites:
+<b>1.	Pre-requisites: </b>
+<br>
 
 * Device template must already exist in vManage.
+
 * Template must not be already attached to the device (Day0 provisioning).
+<br>
 
+<b>2.	Create a YAML file </b>
+<br>
 
-2.	Create a YAML file 
+  Let’s say variables.yaml
 
-* Let’s say variables.yaml
-
-* Sample file below (one host-name block for each device):
+  Sample file below (one host-name block for each device):
+  
+  <br>
 
     vmanage_attachments:
     -   host_name: site1-cEdge1
@@ -47,56 +52,76 @@
       system/system-ip: 1.1.1.5
       system/site-id: ‘120’
 
+<br>
 
+<b>3.	SDK (including installation instructions) </b>
+<br>
 
-3.	SDK (including installation instructions)
+https://github.com/CiscoDevNet/python-viptela
 
-* https://github.com/CiscoDevNet/python-viptela
+<br>
 
+<b>4.	Run import command with file </b>
+<br>
 
-4.	Run import command with file 
+<i>vmanage import attachments -f variables.yaml</i>
 
-* vmanage import attachments -f variables.yaml
-
+<br>
 
 
 # (Optional) Annexure - Identify the template variables using API
+<br>
 
+<b>a.	GET
+<br>
+/dataservice/device</b>
+<br>
 
-a.	GET
-/dataservice/device
+This API will give the UUIDs (device IDs).
+<br>
 
-* This API will give the UUIDs (device IDs).
+Note the UUID of the device of interest.<br>
 
-* Note the UUID of the device of interest.
+Example1: <i>CSR-24A787D5-5C83-4578-900C-57E47F5A34F8 </i>
+<br>
+Example2: <i>ISR4331/K9-FDO23160NNT </i>
+<br><br>
 
-* Example1: CSR-24A787D5-5C83-4578-900C-57E47F5A34F8
-* Example2: ISR4331/K9-FDO23160NNT
+<b>b.	GET
+<br>
+/dataservice/template/device</b>
+<br>
 
+This API will give the Device template IDs.
+<br>
 
-b.	GET
-/dataservice/template/device
+Note the template ID of interest.<br>
 
-* This API will give the Device template IDs.
+Example: <i>9a08ead2-2767-427a-b293-a1c6e90463de </i>
+<br><br>
 
-* Note the template ID of interest.
-
-* Example: 9a08ead2-2767-427a-b293-a1c6e90463de
-
-
-c.	POST
-/dataservice/template/device/config/input/
+<b>c.	POST
+<br>
+/dataservice/template/device/config/input/ </b>
+<br>
 
 (sample) 
-PAYLOAD = 
-{"templateId":"9a08ead2-2767-427a-b293-a1c6e90463de",
-  "deviceIds":["CSR-24A787D5-5C83-4578-900C-57E47F5A34F8"],
-  "isEdited":false,
-  "isMasterEdited":false}
+<br>
+<i>PAYLOAD = {<br>
+               "templateId":"9a08ead2-2767-427a-b293-a1c6e90463de",
+<br>
+               "deviceIds":["CSR-24A787D5-5C83-4578-900C-57E47F5A34F8"],
+<br>
+               "isEdited":false,
+<br>
+               "isMasterEdited":false
+<br>
+             } </i>
+<br>
+<br>
 
-
-* In the Response, ‘columns’ will have list of variables.
-
+In the Response, ‘columns’ will have list of variables.
+<br>
 
     property	"//banner/login"
     title	"Login Banner(test_banner_login)"
@@ -127,9 +152,10 @@ PAYLOAD =
 
     property	"//system/site-id"
     title	"Site ID(site-id)"
+<br>
 
-
-* The variable names can be obtained from the title.
+The variable names can be obtained from the title.
+<br>
 
     test_banner_login
     test_banner_motd
