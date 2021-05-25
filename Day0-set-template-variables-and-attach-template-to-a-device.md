@@ -3,15 +3,15 @@
 
 1.	Pre-requisites:
 
-*Device template must already exist in vManage.
-*Template must not be already attached to the device (Day0 provisioning).
+* Device template must already exist in vManage.
+* Template must not be already attached to the device (Day0 provisioning).
 
 
 2.	Create a YAML file 
 
-*Let’s say variables.yaml
+* Let’s say variables.yaml
 
-*Sample file below (one host-name block for each device):
+* Sample file below (one host-name block for each device):
 
     vmanage_attachments:
     -   host_name: site1-cEdge1
@@ -51,12 +51,12 @@
 
 3.	SDK (including installation instructions)
 
-*https://github.com/CiscoDevNet/python-viptela
+* https://github.com/CiscoDevNet/python-viptela
 
 
 4.	Run import command with file 
 
-*vmanage import attachments -f variables.yaml
+* vmanage import attachments -f variables.yaml
 
 
 
@@ -66,22 +66,22 @@
 a.	GET
 /dataservice/device
 
-*This API will give the UUIDs (device IDs).
+* This API will give the UUIDs (device IDs).
 
-*Note the UUID of the device of interest.
+* Note the UUID of the device of interest.
 
-*Example1: CSR-24A787D5-5C83-4578-900C-57E47F5A34F8
-*Example2: ISR4331/K9-FDO23160NNT
+* Example1: CSR-24A787D5-5C83-4578-900C-57E47F5A34F8
+* Example2: ISR4331/K9-FDO23160NNT
 
 
 b.	GET
 /dataservice/template/device
 
-*This API will give the Device template IDs.
+* This API will give the Device template IDs.
 
-*Note the template ID of interest.
+* Note the template ID of interest.
 
-*Example: 9a08ead2-2767-427a-b293-a1c6e90463de
+* Example: 9a08ead2-2767-427a-b293-a1c6e90463de
 
 
 c.	POST
@@ -95,7 +95,7 @@ PAYLOAD =
   "isMasterEdited":false}
 
 
-*In the Response, ‘columns’ will have list of variables.
+* In the Response, ‘columns’ will have list of variables.
 
 
     property	"//banner/login"
@@ -129,7 +129,7 @@ PAYLOAD =
     title	"Site ID(site-id)"
 
 
-*The variable names can be obtained from the title.
+* The variable names can be obtained from the title.
 
     test_banner_login
     test_banner_motd
